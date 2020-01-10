@@ -1,0 +1,84 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.tagFilter {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.button-row {
+    margin-top: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 50%;
+}
+
+.mat-column-position {
+    max-width: 100px;
+}
+
+.mat-column-name {
+    max-width: 100px;
+}
+
+.mat-elevation-z8.div {
+    margin-top: 20px;
+}
+
+.mat-row:hover,
+.example-selected-row {
+    background: #f5f5f5;
+}
+
+.mat-row:active,
+.mat-row.example-selected-row {
+    background: #e0e0e0;
+}
+
+.myInput {
+    height: 40px;
+    padding: 10px;
+}
+
+.fas.fa-desktop {
+    margin-left: 24px;
+}
+
+.fas.fa-database {
+    margin-left: 4px;
+}
+
+.svg {
+    max-height: 220px;
+    max-width: 220px;
+}
+
+.submit {
+    margin-top: 80px;
+    background-color: green;
+    color: white;
+}
+
+.delete {
+    background-color: crimson;
+    color: white;
+    margin-top: 80px;
+}
+
+.actions {
+    margin-top: 18px;
+}

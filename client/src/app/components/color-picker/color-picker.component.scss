@@ -1,0 +1,48 @@
+:host {
+    display: block;
+    width: 316px;
+}
+
+.summary-info {
+    background: #fff;
+    max-width: 240px;
+    display: flex;
+    cursor: pointer;
+    .info {
+        width: calc(100% - 40px);
+        h3.style {
+            color: #000;
+            margin-bottom: 10px;
+            font-size: 30px;
+        }
+    }
+}
+
+.color-wrapper {
+    display: flex;
+    height: 200px;
+}
+
+.input-wrapper {
+    margin-top: 16px;
+    width: 200px;
+    display: flex;
+    border-radius: 1px;
+    border: 1px solid rgb(243, 237, 237);
+    padding: 8px;
+    height: 32px;
+    justify-content: center;
+}
+
+.color-div {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgb(220, 220, 220);
+}
+
+.text {
+    flex: 1;
+    font-family: "Helvetica";
+    line-height: 32px;
+}

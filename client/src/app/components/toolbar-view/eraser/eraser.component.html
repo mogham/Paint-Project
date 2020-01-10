@@ -1,0 +1,5 @@
+<div class="sizeSlide">
+    <p>Erase size : {{ size.value }} pixels</p>
+    <mat-slider #size class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="10"  max="100" [value]="10" (change) = "setParamsSize($event)"></mat-slider>
+</div>

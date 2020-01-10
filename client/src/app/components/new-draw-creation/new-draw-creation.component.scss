@@ -1,0 +1,59 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+form.normal-form {
+    margin: 5px;
+}
+
+.controles-container {
+    width: 100%;
+}
+
+.controles-continer>* {
+    width: 100%;
+    margin-top: 20px;
+    height: 60%;
+}
+
+.button-row button {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.opened {
+    max-width: relative;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    &:after {
+        border: 10px solid transparent;
+        border-bottom: 10px solid #fff;
+        content: '';
+        right: 10px;
+        position: absolute;
+        top: -10px;
+    }
+}
+
+.containerColorFormat {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonGroup .colorFormat {
+    text-align: center;
+    display: inline-block;
+    padding: 20px 20px;
+    cursor: pointer;
+    float: left;
+    background-color: rbg(200, 200, 200);
+    color: rgb(4, 25, 121);
+    margin-left: 25px;
+    width: 85%;
+}
+
+.buttonGroup .colorFormat:hover {
+    background-color: #b3cde0;
+}

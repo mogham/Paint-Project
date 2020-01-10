@@ -1,0 +1,23 @@
+<div class="thicknessSlide">
+    <p>Outline thickness : {{ thickness.value }} pixels</p>
+    <mat-slider #thickness class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1" max="100"
+        [value]="1" (change)="setParamsThickness($event)"></mat-slider>
+</div>
+<div class="plot-type">
+    <p>Type of the plot :</p>
+    <p>
+        <mat-radio-group class="radio-group" [(ngModel)]="plot" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="contour" (change)="setParamsPlot($event)">
+                <p>Contour</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="full" (change)="setParamsPlot($event)">
+                <p>Full</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="contour-full" (change)="setParamsPlot($event)">
+                <p>Contour with full</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+</div>

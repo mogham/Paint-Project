@@ -1,0 +1,122 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.save-container {
+    display: flex;
+    width: 250px;
+}
+
+.preview-container {
+    margin-top: 20px;
+    max-width: 190px;
+    max-height: 190px;
+}
+
+form.normal-form {
+    margin: 5px;
+}
+
+.controles-container {
+    width: 100%;
+}
+
+.controles-continer>* {
+    width: 100%;
+    margin-top: 20px;
+    height: 100%;
+}
+
+.fas.fa-desktop {
+    margin-left: 97px;
+}
+
+// Reference for question mark :  https://tutorialzine.com/2014/07/css-inline-help-tips
+.help-tip {
+    position: absolute;
+    top: 0px;
+    right: -69px;
+    text-align: center;
+    background-color: #bcdbea;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 26px;
+    cursor: default;
+}
+
+.help-tip:before {
+    content: "?";
+    font-weight: bold;
+    color: #fff;
+}
+
+.help-tip:hover p {
+    display: block;
+    transform-origin: top 0%;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.help-tip p {
+    display: none;
+    text-align: left;
+    background-color: #434647;
+    padding: 10px;
+    width: 215px;
+    position: absolute;
+    border-radius: 6px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: -9px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.help-tip p:before {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-bottom-color: #1e2021;
+    right: 10px;
+    top: -5px;
+}
+
+.help-tip p:after {
+    width: 95%;
+    height: 40px;
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 0;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    100% {
+        opacity: 100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
+}

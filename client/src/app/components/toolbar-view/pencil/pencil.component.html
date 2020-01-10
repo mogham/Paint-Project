@@ -1,0 +1,4 @@
+<div class="thicknessSlide">
+    <p>Outline thickness : {{ thickness.value }} pixels</p>
+    <mat-slider #thickness class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1" [value]="1" (change)="setParams($event)" max="100"></mat-slider>
+</div>

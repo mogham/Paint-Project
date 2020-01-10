@@ -1,0 +1,10 @@
+<div class="lengthSlide">
+    <p>Line length : {{ length.value }} pixels</p>
+    <mat-slider #length class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1"
+        max="100" attr.value="{{this.length}}" (change)="setParamsLength($event)"></mat-slider>
+</div>
+<div class="degreeSlide">
+    <p>Degree : {{ degree.value }}</p>
+    <mat-slider #degree class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="0"
+        max="181" attr.value="{{this.degree}}" (change)="setParamsDegree($event)"></mat-slider>
+</div>

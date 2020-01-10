@@ -1,0 +1,12 @@
+<div class="colorComponent">
+    <div class="color-wrapper">
+        <app-color-palette [hue]="hue" (color)="color = $event" (color)="this.setColor($event)"></app-color-palette>
+        <app-color-slider (color)="hue=$event" style="margin-left:2px"></app-color-slider>
+    </div>
+    <div class="input-wrapper">
+        <span class="text">{{color}}</span>
+        <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
+    </div>
+    <h5 style="color:black;"> Click to choose a color.</h5>
+    <h5 style="color:black;"> Choose a color before clicking at submit. Otherwise, the background's color will be white.</h5>
+</div>

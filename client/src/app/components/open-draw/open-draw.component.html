@@ -1,0 +1,148 @@
+<mat-toolbar class="toolbar">
+    <div mat-dialog-content>
+        <span>Open </span>
+    </div>
+    <button class="btn-dialog-close" mat-raised-button tabIndex="-1" (click)="close()">
+        <mat-icon> clear </mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" (opened)="this.isLocal = true" (opened)="this.onCloud = false" (opened)="this.onDataBase = false" (closed)="this.isLocal = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Open local drawing
+            </mat-panel-title>
+            <mat-panel-description>
+                <i class="fas fa-desktop"></i>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngIf="isLocal">
+            <h3>Choose your draw to open</h3>
+            <input type="file" name="myFile" multiple (change)="loadLocalDraw($event)" id="fileItem" [(ngModel)]="fileOpen">
+            <button mat-raised-button [disabled]="!localOpenButtonState" color="warm" (click)="openLocalDraw()">Open
+        file</button>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="this.onDataBase = true" (opened)="this.onCloud = false" (opened)="this.isLocal = false" (closed)="this.onDataBase = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Open from database
+            </mat-panel-title>
+            <mat-panel-description>
+                <i class="fas fa-database"></i>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+            <mat-select [formControl]="tagsFilter" placeholder="tag" multiple>
+                <mat-select-filter [showSpinner]="false" [array]="this.allTags" (filteredReturn)="this.selectedTags = $event">
+                </mat-select-filter>
+                <mat-option *ngFor="let tags of this.selectedTags" [value]="tags">{{tags}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="!this.isEmpty">
+            <table mat-table [dataSource]="this.dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name
+                        <div>
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="tags">
+                    <th mat-header-cell *matHeaderCellDef> Tags
+                        <div>
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tags}} </td>
+                </ng-container>
+                <ng-container matColumnDef="svg">
+                    <th mat-header-cell *matHeaderCellDef> Preview
+                        <div>
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <svg class="svg" height="220px" width="220px" attr.preserveAspectRatio="x80Y80 meet" [innerHTML]="this.sanitizer.bypassSecurityTrustHtml(element.svg)" [ngStyle]="{'background-color': element.backgroundColor}">
+                                </svg>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef class="actions"> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-button type="submit" class="submit" color="primary" (click)="openDraw(row)">Open</button> &nbsp; &nbsp;
+                        <button mat-button type="submit" class="delete" color="primary" (click)="deleteDrawingFromDataBase(row)">Delete</button>
+                    </mat-cell>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-card *ngIf="this.showSpinner" style="display: flex; justify-content: center; align-items: center">
+                <mat-progress-spinner color="primary" mode="indeterminate">
+                </mat-progress-spinner>
+            </mat-card>
+        </div>
+        <div *ngIf="this.isEmpty">
+            <span> No drawings in the server. </span>
+        </div>
+        <div *ngIf="this.serverError">
+            <span> Problem occured with the server. </span>
+        </div>
+        <mat-paginator #paginator [pageSize]="8"></mat-paginator>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="this.onCloud = true" (opened)="this.onDataBase = false" (opened)="this.isLocal = false" (closed)="this.onCloud = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Open from the cloud
+            </mat-panel-title>
+            <mat-panel-description>
+                <i class="fas fa-cloud"></i>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+            <mat-select [formControl]="tagsFilter" placeholder="tag" multiple>
+                <mat-select-filter [showSpinner]="false" [array]="this.allTagsCloud" (filteredReturn)="this.selectedTags = $event">
+                </mat-select-filter>
+                <mat-option *ngFor="let tags of this.selectedTags" [value]="tags">{{tags}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <table mat-table [dataSource]="this.dataSourceCloud" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name
+                    <div>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tags">
+                <th mat-header-cell *matHeaderCellDef> Tags
+                    <div>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.tags}} </td>
+            </ng-container>
+            <ng-container matColumnDef="svg">
+                <th mat-header-cell *matHeaderCellDef> Preview
+                    <div>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <svg class="svg" height="220px" width="220px" attr.preserveAspectRatio="x80Y80 meet" [innerHTML]="this.sanitizer.bypassSecurityTrustHtml(element.svg)" [ngStyle]="{'background-color': element.backgroundColor}">
+                                </svg>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="actions"> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-button type="submit" class="submit" color="primary" (click)="openDraw(row)">Open</button> &nbsp; &nbsp;
+                    <button mat-button type="submit" class="delete" color="primary" (click)="deleteDrawingFromCloud(row)">Delete</button>
+                </mat-cell>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div *ngIf="this.serverError">
+            <span> Problem occured with the server. </span>
+        </div>
+        <mat-paginator #paginatorCloud [pageSize]="8"></mat-paginator>
+    </mat-expansion-panel>
+</mat-accordion>

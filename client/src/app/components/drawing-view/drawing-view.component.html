@@ -1,0 +1,371 @@
+<mat-grid-list class="top" id="top" cols="14" rowHeight="42px" (mousedown)="onMouseDown($event)">
+    <mat-grid-tile> <a id="folderButton" class="folderButton" href="#" title="Welcome dialog" (click)="this.welcomeModal()"><i class="fab fa-penny-arcade"></i></a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <a id="folderButton" href="#" class="createButton" title="New ... (Ctrl+O)" (click)="this.verifyCreation()"><i class="fas fa-plus"></i></a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <a id="folderButton" class="folderButton" href="#" title="Open ... (Ctrl+G)" (click)="this.verifyOpening()"><i
+        class="fas fa-folder-open"></i></a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <a id="folderButton" class="folderButton" href="#" title="Save (Ctrl+S)" (click)="this.verifySaving()"><i
+        class="fas fa-save"></i></a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <a id="folderButton" class="folderButton" href="#" title="Export (Ctrl+E)" (click)="this.verifyExporting()"><i class="fas fa-share-square"></i></a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!(this.commandArray.length > 0)" href="#" class="buttonUR" title="Undo (Ctrl+Z)" (click)="undo()"><i
+      class="fas fa-undo"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!(this.commandDeletedArray.length > 0)" href="#" class="buttonUR" title="Redo (Ctrl+Shift+Z)" (click)="redo()"><i class="fas fa-redo"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!this.isDrawingDone || (!this.selection.isControlPointsShape && !this.selection.isControlPointsGroup)" href="#" class="buttonUR" title="Copy (Ctrl+C)" (click)="copy()"><i
+      class="far fa-copy"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!this.isDrawingDone || !this.isCopied" href="#" class="buttonUR" title="Paste (Ctrl+V)" (click)="paste()"><i class="fas fa-paste"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!this.isDrawingDone || (!this.selection.isControlPointsShape && !this.selection.isControlPointsGroup)" href="#" class="buttonUR" title="Cut (Ctrl+X)" (click)="cut()"><i
+      class="far fa-hand-scissors"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!this.isDrawingDone || (!this.selection.isControlPointsShape && !this.selection.isControlPointsGroup)" href="#" class="buttonUR" title="Duplicate (Ctrl+D)" (click)="duplicate()"><i class="far fa-clone"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!this.isDrawingDone" href="#" class="buttonUR" title="Select all (Ctrl+A)" (click)="selectAll()"><i
+      class="far fa-object-group"></i></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button [disabled]="!this.isDrawingDone || (!this.selection.isControlPointsShape && !this.selection.isControlPointsGroup)" href="#" class="buttonUR" title="Delete (delete)" (click)="deleteSelection()"><i class="far fa-trash-alt"></i></button>
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+<div id="drawing-view" (mousedown)="onMouseDown($event)">
+    <div class="icon-bar">
+        <div id="tools" class="tools">
+            <div id="traceTools">
+                <button href="#" title="Pencil (C)" (click)="select('pencil')" [disabled]="!this.isCreate"><i
+            class="fas fa-pencil-alt"></i>
+        </button>
+                <button href="#" title="Paint Brush (W)" (click)="select('paintBrush')" [disabled]="!this.isCreate"><i
+            class="fas fa-paint-brush"></i>
+        </button>
+                <button href="#" title="Fountain pen (P)" (click)="select('fountainPen')" [disabled]="!this.isCreate"><i
+            class="fas fa-pen-nib"></i>
+        </button>
+                <button href="#" title="Pen (Y)" (click)="select('pen')" [disabled]="!this.isCreate"><i
+            class="fas fa-pen-alt"></i>
+        </button>
+                <button href="#" title="Aerosol (A)" (click)="select('aerosol')" [disabled]="!this.isCreate"><i
+            class="fas fa-spray-can"></i>
+        </button>
+            </div>
+            <div id="formTools">
+                <button href="#" title="Rectangle (1)" (click)="select('rectangle')" [disabled]="!this.isCreate"><svg width="28"
+            height="16">
+            <rect width="28" height="16" stroke="white" fill="transparent" stroke-width="4"></rect>
+          </svg>
+        </button>
+                <button href="#" title="Ellipse (2)" (click)="select('ellipse')" [disabled]="!this.isCreate"><svg width="28"
+            height="16">
+            <ellipse cx="14" cy="8" rx="13" ry="6" stroke="white" fill="transparent" stroke-width="2"></ellipse>
+          </svg>
+        </button>
+                <button href="#" title="Polygon (3)" (click)="select('polygon')" [disabled]="!this.isCreate"><i
+            class="far fa-star"></i>
+        </button>
+                <button href="#" title="Line (L)" (click)="select('line')" [disabled]="!this.isCreate"><svg width="28"
+            height="16">
+            <line x1="0" y1="0" x2="28" y2="16" stroke="white" fill="transparent" stroke-width="2"></line>
+          </svg>
+        </button>
+            </div>
+            <div id="tools">
+                <button href="#" title="Selection (S)" (click)="select('selection')" [disabled]="!this.isCreate"><i
+            class="fas fa-mouse-pointer"></i></button>
+                <button href="#" title="Text (T)" (click)="select('text')" [disabled]="!this.isCreate"><i
+            class="fas fa-font"></i>
+        </button>
+                <button href="#" title="Eraser (E)" (click)="select('eraser')" [disabled]="!this.isCreate"><i
+            class="fas fa-eraser"></i>
+        </button>
+                <button href="#" title="Eye Dropper (I)" (click)="select('pipette')" [disabled]="!this.isCreate"><i
+            class="fas fa-eye-dropper"></i></button>
+                <button href="#" title="Stamp (no shortcut)" (click)="select('stamp')" [disabled]="!this.isCreate"><i
+            class="fas fa-stamp"></i>
+        </button>
+                <button href="#" title="Color applicator (R)" (click)="select('colorApplicator')" [disabled]="!this.isCreate">
+          <i *ngIf="this.iscolorApplicatorUsed" class="fas fa-tint"></i>
+          <i *ngIf="!this.iscolorApplicatorUsed" class="fas fa-tint-slash"></i></button>
+                <button href="#" title="Paint bucket (B)" (click)="select('paintBucket')" [disabled]="!this.isCreate"><i class="fas fa-fill-drip"></i></button>
+            </div>
+        </div>
+    </div>
+    <div id="drawing-surface">
+        <svg class="MySVG" attr.width="{{widthDraw}}" attr.height="{{heightDraw}}" [ngStyle]="{'background-color': this.fillColor}" #MySVG xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)"
+            (click)=" this.onLeftClick($event)" (contextmenu)="this.onRightClick($event)" (mouseleave)="onMouseLeave()" (mouseenter)="onMouseEnter()">
+      <defs>
+        <filter id="f1">
+          <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence" />
+          <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="f2">
+          <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
+          <feColorMatrix result="matrixOut" in="offOut" type="matrix" />
+          <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+        <filter id="f3">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+          <feOffset in="blur" result="offsetBlur" />
+          <feComposite in="offsetBlur" />
+        </filter>
+        <filter id="f4" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" />
+          <feOffset in="blur" dx="4" dy="4" result="offsetBlur" />
+          <feSpecularLighting in="blur" surfaceScale="5" specularConstant=".75" specularExponent="20" result="specOut">
+          </feSpecularLighting>
+          <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut" />
+          <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
+            result="litPaint" />
+          <feMerge>
+            <feMergeNode in="offsetBlur" />
+            <feMergeNode in="litPaint" />
+          </feMerge>
+        </filter>
+        <filter id="f5" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+          <feOffset in="blur" result="offsetBlur" />
+        </filter>
+        <marker *ngIf="this.drawingToolUsed=='line'" id="j1" orient="auto" markerUnits="userSpaceOnUse"
+          viewBox="-20 -20 100 100" attr.markerWidth="{{drawLine.diameterMarker}}"
+          attr.markerHeight="{{drawLine.diameterMarker}}" refX="4" refY="4">
+          <circle cx="4" cy="4" r="4" stroke="black" />
+        </marker>
+        <pattern id="grille" attr.width="{{gridService.sideLength}}" attr.height="{{gridService.sideLength}}"
+          patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" attr.width="{{gridService.sideLength}}" attr.height="{{gridService.sideLength}}"
+            attr.stroke-opacity="{{gridService.opacity}}" stroke="black" fill="transparent" stroke-width="1" />
+        </pattern>
+      </defs>
+      <rect *ngIf="this.isGrid ==='true'" attr.width="{{widthDraw}}" attr.height="{{heightDraw}}" fill="url(#grille)" />
+      <rect *ngIf="this.drawingToolUsed=='rectangle' && isDrawing" class="draggable" attr.x="{{tool.originRectX}}"
+        attr.y="{{tool.originRectY}}" attr.width="{{tool.width}}" attr.height="{{tool.height}}"
+        attr.fill="{{tool.fill}}" attr.stroke="{{tool.stroke}}" attr.stroke-width="{{tool.strokeWidth}}" />
+      <path *ngIf="this.drawingToolUsed=='paintBrush'" attr.d="{{tool.path}}" [ngStyle]="tool.setStyles()"></path>
+      <circle *ngIf="this.drawingToolUsed=='polygon'" attr.cx="{{tool.originX}}" attr.cy="{{tool.originY}}"
+        attr.r="{{tool.radius}}" stroke="transparent" fill="transparent" />
+      <polygon *ngIf="this.drawingToolUsed=='polygon' && isDrawing" attr.points="{{tool.vertices}}"
+        attr.fill="{{tool.fill}}" attr.stroke="{{tool.stroke}}" attr.stroke-width="{{tool.strokeWidth}}"
+        attr.transform="rotate({{tool.angleRotation}}, {{tool.originX}}, {{tool.originY}})" />
+      <rect *ngIf="this.drawingToolUsed=='polygon' && isDrawing" class="draggable"
+        attr.x="{{ tool.minArrayX - tool.strokeWidth + 0.15*tool.strokeWidth }}"
+        attr.y="{{tool.minArrayY - tool.strokeWidth }}"
+        attr.width="{{ tool.maxArrayX - tool.minArrayX + 1.75*tool.strokeWidth }}"
+        attr.height="{{ tool.maxArrayY - tool.minArrayY + 1.55*tool.strokeWidth }}" fill="transparent" stroke="grey"
+        stroke-width="1" stroke-dasharray="5, 1"
+        attr.transform="rotate({{tool.angleRotation}}, {{tool.originX}}, {{tool.originY}})">
+      </rect>
+      <ellipse *ngIf="this.drawingToolUsed=='ellipse' && isDrawing" class="draggable" attr.cx="{{tool.centerXEllipse}}"
+        attr.cy="{{tool.centerYEllipse}}" attr.rx="{{tool.width}}" attr.ry="{{tool.height}}" attr.fill="{{tool.fill}}"
+        attr.stroke="{{tool.stroke}}" attr.stroke-width="{{tool.strokeWidth}}">
+      </ellipse>
+      <rect *ngIf="this.drawingToolUsed=='ellipse' && isDrawing" class="draggable"
+        attr.x="{{tool.centerXEllipse - tool.width - tool.strokeWidth / 2}}"
+        attr.y="{{tool.centerYEllipse - tool.height - tool.strokeWidth / 2}}"
+        attr.width="{{tool.width*2 + tool.strokeWidth}}" attr.height="{{tool.height*2 + tool.strokeWidth}}"
+        fill="transparent" stroke="grey" stroke-width="1" stroke-dasharray="5, 1">
+      </rect>
+      <rect *ngIf="this.drawingToolUsed=='selection'" class="draggable" attr.x="{{tool.originRectX}}"
+        attr.y="{{tool.originRectY}}" attr.width="{{tool.width}}" attr.height="{{tool.height}}"
+        attr.fill="{{tool.fill}}" attr.stroke="{{tool.stroke}}" attr.stroke-width="{{tool.strokeWidth}}"
+        attr.stroke-linecap="{{tool.strokeLinecap}}" attr.stroke-dasharray="{{tool.strokeDasharray}}"></rect>
+      <circle id="LU" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox}}" attr.cy="{{tool.originYBox}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="RU" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox + tool.widthBox}}" attr.cy="{{tool.originYBox}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="LD" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox}}" attr.cy="{{tool.originYBox + tool.heightBox}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="RD" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox + tool.widthBox}}" attr.cy="{{tool.originYBox + tool.heightBox}}" r="12"
+        stroke="black" fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="MU" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox + tool.widthBox /2}}" attr.cy="{{tool.originYBox}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="RM" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox + tool.widthBox}}" attr.cy="{{tool.originYBox + tool.heightBox /2}}" r="12"
+        stroke="black" fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="MD" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox + tool.widthBox / 2}}" attr.cy="{{tool.originYBox + tool.heightBox}}" r="12"
+        stroke="black" fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="LM" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsShape"
+        attr.cx="{{tool.originXBox}}" attr.cy="{{tool.originYBox + tool.heightBox / 2}}" r="12" stroke="black"
+        fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="LU" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox}}" attr.cy="{{tool.originYGroupBox}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="RU" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox + tool.widthGroupBox}}" attr.cy="{{tool.originYGroupBox}}" r="12" stroke="black"
+        fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="LD" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox}}" attr.cy="{{tool.originYGroupBox + tool.heightGroupBox}}" r="12" stroke="black"
+        fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="RD" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox + tool.widthGroupBox}}" attr.cy="{{tool.originYGroupBox + tool.heightGroupBox}}"
+        r="12" stroke="black" fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="MU" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox + tool.widthGroupBox /2}}" attr.cy="{{tool.originYGroupBox}}" r="12"
+        stroke="black" fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <circle id="RM" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox + tool.widthGroupBox}}"
+        attr.cy="{{tool.originYGroupBox + tool.heightGroupBox /2}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="MD" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox + tool.widthGroupBox / 2}}"
+        attr.cy="{{tool.originYGroupBox + tool.heightGroupBox}}" r="12" stroke="black" fill="grey"
+        attr.transform="{{tool.transform}}"></circle>
+      <circle id="LM" *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.cx="{{tool.originXGroupBox}}" attr.cy="{{tool.originYGroupBox + tool.heightGroupBox / 2}}" r="12"
+        stroke="black" fill="grey" attr.transform="{{tool.transform}}"></circle>
+      <rect *ngIf="this.drawingToolUsed=='selection' && this.selection.isControlPointsGroup"
+        attr.width="{{tool.widthGroupBox}}" attr.height="{{tool.heightGroupBox}}" attr.x="{{tool.originXGroupBox}}"
+        attr.y="{{tool.originYGroupBox}}" attr.fill="{{tool.fill}}" attr.stroke="{{tool.stroke}}"
+        attr.stroke-width="{{tool.strokeWidth}}" attr.stroke-linecap="{{tool.strokeLinecap}}"
+        attr.transform="{{tool.transform}}"></rect>
+      <path *ngIf="this.drawingToolUsed=='pencil'" attr.d="{{tool.path}}" [ngStyle]="tool.setStyles()"></path>
+      <path *ngIf="this.drawingToolUsed=='paintBrush'" attr.d="{{tool.path}}" [ngStyle]="tool.setStyles()"></path>
+      <path *ngIf="this.drawingToolUsed=='line'" class="draggable" attr.d="{{tool.points}}"
+        [ngStyle]="tool.setStyles()"></path>
+      <g id='penContainer' *ngIf="this.drawingToolUsed =='pen'">
+        <path id="pen" *ngIf="this.drawingToolUsed =='pen'" attr.d="{{tool.path}}" [ngStyle]="tool.setStyles()"></path>
+      </g>
+      <text *ngIf="this.drawingToolUsed=='text'" class="draggable" attr.x="{{tool.originX}}"
+        attr.y="{{tool.originY + tool.lineCount * (tool.getFontSize() / 2 + 18)}}" [ngStyle]="tool.setStyles()">
+        {{tool.valueToWrite}}
+        <tspan *ngFor="let text of tool.textArray, let i = index " attr.x="{{tool.originX}}"
+          attr.y="{{tool.originY + i * (tool.getFontSize() / 2 + 18)}}">
+          {{text}}
+        </tspan>
+      </text>
+      <g id='fountainPenContainer' *ngIf="this.drawingToolUsed =='fountainPen'">
+        <g id='fountainPenContainer' *ngIf="this.drawingToolUsed =='fountainPen'">
+          <path id="fountainPen" attr.d="{{tool.path}}" [ngStyle]="tool.setStyles()"></path>
+      </g>
+      </g>
+      <rect *ngIf="this.isEraserUsed && this.tool.isActivated" attr.width="{{tool.size}}" attr.height="{{tool.size}}"
+        attr.x="{{tool.originX - tool.size / 2}}" attr.y="{{tool.originY - tool.size / 2}}"
+        attr.stroke="{{tool.stroke}}" attr.fill="{{tool.fill}}" elementID='eraser'></rect>
+      <path *ngIf="this.drawingToolUsed=='line'" class="draggable" attr.d="{{tool.points}}"
+        [ngStyle]="tool.setStyles()">
+      </path>
+      <g id="containerAerosol" *ngIf="this.drawingToolUsed =='aerosol'">
+        <ellipse id="aerosol" *ngIf="this.drawingToolUsed =='aerosol' && isDrawing" class="draggable"
+          attr.cx="{{tool.generatedX}}" attr.cy="{{tool.generatedY}}" attr.rx="{{tool.vaporRay}}"
+          attr.ry="{{tool.vaporRay}}" attr.fill="{{tool.fill}}" attr.stroke="{{tool.stroke}}"
+          attr.stroke-width="{{tool.strokeWidth}}">
+        </ellipse>
+      </g>
+    </svg>
+        <a #downloadLink></a>
+    </div>
+    <div class='attribute'>
+        <mat-accordion>
+            <mat-expansion-panel [disabled]="!this.isCreate" title="Modify the primary or the secondary color.">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><i class="fas fa-palette"></i>
+                        <span class="title">Color</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div id="colorTool" class="colorTool">
+                    <app-color-tool (eventEmit)='changeBackgroundColor($event)'></app-color-tool>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion>
+            <mat-expansion-panel [disabled]="!this.isCreate" title="Grid (G)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><i class="fas fa-th-large"></i>
+                        <span class="title">Grid</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div id="grid" class="grid">
+                    <app-grid (eventEmit)='activateGrid($event)'></app-grid>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion>
+            <mat-expansion-panel [disabled]="!this.isCreate" title="Magnet (M)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><i class="fas fa-magnet"></i>
+                        <span class="title">Magnet</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div id="magnet" class="magnet">
+                    <app-magnet (click)="$event.stopPropagation();"></app-magnet>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <div class="tool" *ngIf="this.drawingToolUsed=='pencil'">
+            <span class="toolName"> Pencil </span>
+            <app-pencil (click)="$event.stopPropagation();"></app-pencil>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='paintBrush'">
+            <span class="toolName"> Paint brush </span>
+            <app-paint-brush (click)="$event.stopPropagation();"></app-paint-brush>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='fountainPen'">
+            <span class="toolName"> Fountain pen </span>
+            <app-fountain-pen (click)="$event.stopPropagation();"></app-fountain-pen>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='pen'">
+            <span class="toolName"> Pen </span>
+            <app-pen (click)="$event.stopPropagation();"></app-pen>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='aerosol'">
+            <span class="toolName"> Aerosol </span>
+            <app-aerosol (click)="$event.stopPropagation();"></app-aerosol>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='rectangle'">
+            <span class="toolName"> Rectangle </span>
+            <app-rectangle (click)="$event.stopPropagation();"></app-rectangle>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='ellipse'">
+            <span class="toolName"> Ellipse </span>
+            <app-ellipse (click)="$event.stopPropagation();"></app-ellipse>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='polygon'">
+            <span class="toolName"> Polygon </span>
+            <app-polygon (click)="$event.stopPropagation();"></app-polygon>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='line'">
+            <span class="toolName"> Line </span>
+            <app-line (click)="$event.stopPropagation();"></app-line>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='text'">
+            <span class="toolName"> Text </span>
+            <app-text (click)="$event.stopPropagation();"></app-text>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='eraser'">
+            <span class="toolName"> Eraser </span>
+            <app-eraser (click)="$event.stopPropagation();"></app-eraser>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='stamp'">
+            <span class="toolName"> Stamp </span>
+            <app-stamp (click)="$event.stopPropagation();"></app-stamp>
+        </div>
+        <div class="tool" *ngIf="this.drawingToolUsed=='paintBucket'">
+            <span class="toolName"> paintBucket </span>
+            <app-paint-bucket (click)="$event.stopPropagation();"></app-paint-bucket>
+        </div>
+
+    </div>
+</div>

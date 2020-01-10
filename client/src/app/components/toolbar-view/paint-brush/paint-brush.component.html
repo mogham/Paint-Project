@@ -1,0 +1,31 @@
+<div class="thicknessSlide">
+    <p>Line thickness : {{ thickness.value }} pixels</p>
+    <mat-slider #thickness class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="1"  max="100" [value] = "1" (change) = "setParamsThickness($event)"></mat-slider>
+</div>
+<div class="texture">
+    <p>Texture of the line :</p>
+    <p>
+        <mat-radio-group class="radio-group" [(ngModel)]="texture" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="texture 1" (change)="setParamsTexture($event)">
+                <p>Crafty</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="texture 2" (change)="setParamsTexture($event)">
+                <p>shadow</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="texture 3" (change)="setParamsTexture($event)">
+                <p>spray+shadow</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="texture 4" (change)="setParamsTexture($event)">
+                <p>jelly</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="texture 5" (change)="setParamsTexture($event)">
+                <p>spray</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+</div>

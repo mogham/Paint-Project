@@ -1,0 +1,28 @@
+<div class="plot-type">
+    <p>Type of the plot :</p>
+    <p>
+        <mat-radio-group class="radio-group" [(ngModel)]="font" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="contour" (change)="setParamsPlot($event)">
+                <p>Contour</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="full" (change)="setParamsPlot($event)">
+                <p>Full</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="contour-full" (change)="setParamsPlot($event)">
+                <p>Contour Full</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+</div>
+<div class="thicknessSlide">
+    <p>Outline thickness : {{ thickness.value }} pixels</p>
+    <mat-slider #thickness class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="1" [value]="1" (change) = "setParamsThickness($event)" max="100"></mat-slider>
+</div>
+<div class="thicknessSlide">
+    <p>Tolerance : {{ tolerance.value }} %</p>
+    <mat-slider #tolerance class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="0" [value]="0" (change) = "setParamsTolerance($event)" max="100"></mat-slider>
+</div>

@@ -1,0 +1,16 @@
+<mat-toolbar class="toolbar">
+    <div mat-dialog-content>
+        <span>Attention </span>
+    </div>
+    <button class="btn-dialog-close" mat-raised-button tabIndex="-1" (click)="cancel()">
+        <mat-icon> clear </mat-icon>
+    </button>
+</mat-toolbar>
+<div mat-dialog-content>
+    <div>Are you sure do you want to open a drawing ?</div>
+    <h5>All unsaved work will be lost.</h5>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onYes()">Yes</button>
+    <button mat-button autofocus (click)="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,8 @@
+<div class="lenghtSlide">
+    <p>Min line thickness : {{ minStrokeWidth.value }} pixels</p>
+    <mat-slider #minStrokeWidth class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1" (change)="setParamsMinStrokeWidth($event)" max="{{maxStrokeWidth.value}}"></mat-slider>
+</div>
+<div class="degreeSlide">
+    <p>Max line thickness : {{ maxStrokeWidth.value }} pixels</p>
+    <mat-slider #maxStrokeWidth class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="{{ minStrokeWidth.value }}" (change)="setParamsMaxStrokeWidth($event)" max="100"></mat-slider>
+</div>

@@ -1,0 +1,50 @@
+<div class="scaleSlide">
+    <p>Scale factor : {{ scale.value }}%</p>
+    <mat-slider #scale class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="1"  max="200" [value]="100" (change) = "setParamsScale($event)"></mat-slider>
+</div>
+<div class="orientationSlide">
+    <p>Orientation angle : {{ orientationAngle.value }} degree</p>
+    <mat-slider #orientationAngle class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="0"  max="181" [value]="0" (change)="setParamsOrientationAngle($event)"></mat-slider>
+</div>
+<div class="stamp">
+    <p>Choose your stamp :</p>
+    <mat-radio-group [(ngModel)]="stampUsed">
+    <p>
+        <label>
+            <mat-radio-button class="radio" value="angry" (change)="setParamsStampUsed($event)">
+                <img src="assets/svg/angry.svg" title="Angry">
+            </mat-radio-button>
+        </label>
+    </p>
+    <p>
+        <label>
+            <mat-radio-button class="radio" value="kissing" (change)="setParamsStampUsed($event)">
+            <img src="assets/svg/kissing.svg" title="Kissing">
+            </mat-radio-button>
+        </label> 
+    </p>
+    <p>
+        <label>
+            <mat-radio-button class="radio" value="bored" (change)="setParamsStampUsed($event)">
+                <img src="assets/svg/bored.svg" title="Bored">
+            </mat-radio-button>
+        </label> 
+    </p>
+    <p>
+        <label>
+            <mat-radio-button class="radio" value="happy" (change)="setParamsStampUsed($event)">
+                <img src="assets/svg/happy.svg" title="Happy">
+            </mat-radio-button>
+        </label>
+    </p>
+    <p>
+        <label>
+            <mat-radio-button class="radio" value="confused" (change)="setParamsStampUsed($event)">
+                <img src="assets/svg/confused.svg" title="Confused">
+            </mat-radio-button>
+        </label>
+    </p>
+</mat-radio-group>
+</div>

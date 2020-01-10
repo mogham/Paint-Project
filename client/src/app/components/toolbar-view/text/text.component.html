@@ -1,0 +1,56 @@
+<div class="fontSizeSlide">
+    <p>Font side : {{ fontSize.value }} pixels</p>
+    <mat-slider #fontSize class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1" max="100" [value]="1" (change)="setParamsFontSize($event)" (onmove)="setParams()"></mat-slider>
+</div>
+<div class="fontType">
+    <div class="isBold">
+        <p>
+            <label>
+                <mat-checkbox (change)="setParamsBold($event)" (click)="setBoldStyle()">Bold
+                </mat-checkbox>
+            </label>
+        </p>
+    </div>
+    <div class="isItalic">
+        <p>
+            <label>
+                <mat-checkbox (click)="setItalicStyle()" (change)="setParamsItalic($event)">Italic
+                </mat-checkbox>
+            </label>
+        </p>
+    </div>
+    <p>Font :</p>
+    <p>
+        <mat-radio-group class="radio-group" [(ngModel)]="font" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="font1" (change)="setParamsFont($event)">
+                <p class="gill">Gill Sans</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="font2" (change)="setParamsFont($event)">
+                <p class="cursive">Segoe UI</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="font3" (change)="setParamsFont($event)">
+                <p class="courrier">Courier New</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+</div>
+<div class="textAlign">
+    <p>Text align :</p>
+    <p>
+        <mat-radio-group class="radio-group1" [(ngModel)]="textAlign" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="left" (change)="setParamsTextAlign($event)">
+                <p>Left</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="center" (change)="setParamsTextAlign($event)">
+                <p>Center</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="right" (change)="setParamsTextAlign($event)">
+                <p>Right</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+</div>

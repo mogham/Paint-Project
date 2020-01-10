@@ -1,0 +1,47 @@
+<div class="thicknessSlide">
+    <p>Line thickness : {{ thickness.value }} pixels</p>
+    <mat-slider #thickness class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1" max="100"
+        [value]="1" (change)="setParamsThickness($event)"></mat-slider>
+</div>
+<div class="thicknessSlide">
+    <p>Diameter of junctions points : {{ pointsDiameter.value }} pixels</p>
+    <mat-slider #pointsDiameter class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="1" max="100"
+        [value]="1" (change)="setParamsPointsDiameter($event)"></mat-slider>
+</div>
+<div class="junction-type">
+    <p>Type of the junction :</p>
+    <p>
+        <mat-radio-group class="radio-group" [(ngModel)]="junctionType" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="angle" (change)="setParamsJunctionType($event)">
+                <p>Angle</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="round" (change)="setParamsJunctionType($event)">
+                <p>Round</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="with-points" (change)="setParamsJunctionType($event)">
+                <p>With points</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+    <p>
+</div>
+<div class="line-pattern">
+    <p>Type of the line :</p>
+    <p>
+        <mat-radio-group class="radio-group" [(ngModel)]="linePattern" aria-labelledby="example-radio-group-label">
+            <mat-radio-button class="radio" value="continu" (change)="setParamsLinePattern($event)">
+                <p>Continu</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="dotted-traits" (change)="setParamsLinePattern($event)">
+                <p>Dotted (trait)</p>
+            </mat-radio-button>
+            <br>
+            <mat-radio-button class="radio" value="dotted-points" (change)="setParamsLinePattern($event)">
+                <p>Dotted (point)</p>
+            </mat-radio-button>
+        </mat-radio-group>
+    </p>
+</div>

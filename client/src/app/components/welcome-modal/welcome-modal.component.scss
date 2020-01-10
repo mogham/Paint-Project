@@ -1,0 +1,63 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    background-color: #858282;
+}
+
+button.mat-button.mat-button-base {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.btn-outline-secondary {
+    padding: 10px;
+    margin-left: 300px;
+}
+
+.fab.fa-penny-arcade {
+    font-size: 63px;
+    margin-left: -7px;
+    margin-right: 7px;
+}
+
+.name {
+    margin-left: 15px;
+}
+
+.previewTemplate {
+    width: 700px;
+    height: 260px;
+    margin-left: 70px;
+}
+
+.mat-button {
+    margin-right: 6px;
+}
+
+.form-check {
+    margin-top: 135px;
+    margin-bottom: 23px;
+}
+
+.buttonFeature {
+    margin-top: 189px;
+}
+
+.shortcuts {
+    margin-top: 224px;
+}
+
+.projectButton {
+    margin-top: 177px;
+}
+
+.credits {
+    margin-top: 27px;
+}
+
+.buttonTutorial {
+    margin-top: 32px;
+}

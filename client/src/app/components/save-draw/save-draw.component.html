@@ -1,0 +1,139 @@
+<mat-toolbar class="toolbar">
+    <div mat-dialog-content>
+        <span>Save </span>
+    </div>
+    <button class="btn-dialog-close" mat-raised-button tabIndex="-1" (click)="close();">
+        <mat-icon> clear </mat-icon>
+    </button>
+</mat-toolbar>
+<mat-accordion class="saveOptions" (opened)="this.isLocal = true" (closed)="this.isLocal = false">
+    <mat-expansion-panel [expanded]="true" (opened)="this.isLocal = true" (opened)="this.onCloud = false" (opened)="this.onDataBase = false" (closed)="this.isLocal = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Save local
+            </mat-panel-title>
+            <mat-panel-description>
+                <i class="fas fa-desktop"></i>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="container">
+            <div class="save-container" [style.width]="'50%'">
+                <form [formGroup]="this.form" class="normal-form" [style.overflow]="'auto'" [style.height]="'100%'" [style.width]="'100%'">
+                    <mat-grid-list cols="1">
+                        <div class="controles-container">
+                            <div>
+                                <mat-form-field>
+                                    <input type="text" formControlName="name" matInput placeholder="Name*">
+                                    <mat-error *ngIf="this.form.controls['name'].errors?.pattern">
+                                        Name must be alphanumerical.</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-grid-list>
+                    <div class="button-row ">
+                        <button mat-raised-button type="submit " color="primary" [disabled]="this.form.invalid" (click)="saveLocal()">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="preview-container">
+                <svg width="200px" height="200px" attr.preserveAspectRatio="x80Y80 meet" attr.viewBox="{{this.viewBox}}" [innerHTML]="this.sanitizer.bypassSecurityTrustHtml(this.data.svg.nativeElement.innerHTML)" [ngStyle]="{'background-color': this.data.backgroundColor}"
+                    #MySVG xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        </svg>
+            </div>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="this.onCloud = true" (opened)="this.onDataBase = false" (opened)="this.isLocal = false" (closed)="this.onCloud = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Save online on Database
+            </mat-panel-title>
+            <mat-panel-description>
+                <i class="fas fa-database"></i>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="container">
+            <div class="save-container" [style.width]="'50%'">
+                <form [formGroup]="this.form" class="normal-form" [style.overflow]="'auto'" [style.height]="'100%'" [style.width]="'90%'">
+                    <mat-grid-list cols="1">
+                        <div class="controles-container">
+                            <div>
+                                <mat-form-field>
+                                    <input type="text" formControlName="name" matInput placeholder="Name*">
+                                    <mat-error *ngIf="this.form.controls['name'].errors?.pattern">
+                                        Name must be alphanumerical.</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-chip-list #chipList aria-label="Tag selection">
+                                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                                            {{tag}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="Tags" #tagInput [formControl]="tagCtrl" pattern="ALPHANUMERICREGEX" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" width="100%">
+                                    </mat-chip-list>
+                                    <div class="help-tip">
+                                        <p>To write a new tag, you can press at "enter" or ",".</p>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-grid-list>
+                    <div class="button-row ">
+                        <button mat-raised-button type="submit " color="primary" [disabled]="this.form.invalid" (click)="saveOnDataBase()">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="preview-container">
+                <svg width="200px" height="200px" attr.preserveAspectRatio="x80Y80 meet" attr.viewBox="{{this.viewBox}}" [innerHTML]="this.sanitizer.bypassSecurityTrustHtml(this.data.svg.nativeElement.innerHTML)" [ngStyle]="{'background-color': this.data.backgroundColor}"
+                    #MySVG xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                </svg>
+            </div>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="this.onCloud = true" (opened)="this.onDataBase = false" (opened)="this.isLocal = false" (closed)="this.onCloud = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Save online on the cloud
+            </mat-panel-title>
+            <mat-panel-description>
+                <i class="fas fa-cloud"></i>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="container">
+            <div class="save-container" [style.width]="'50%'">
+                <form [formGroup]="this.form" class="normal-form" [style.overflow]="'auto'" [style.height]="'100  %'" [style.width]="'90%'">
+                    <mat-grid-list cols="1">
+                        <div class="controles-container">
+                            <div>
+                                <mat-form-field>
+                                    <input type="text" formControlName="name" matInput placeholder="Name*">
+                                    <mat-error *ngIf="this.form.controls['name'].errors?.pattern">
+                                        Name must be alphanumerical.</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-grid-list>
+                    <mat-form-field>
+                        <mat-chip-list #chipList aria-label="Tag selection">
+                            <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                                {{tag}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input placeholder="Tags" #tagInput [formControl]="tagCtrl" pattern="ALPHANUMERICREGEX" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" width="100%">
+                        </mat-chip-list>
+                        <div class="help-tip">
+                            <p>To write a new tag, you can press at "enter" or ",".</p>
+                        </div>
+                    </mat-form-field>
+                    <div class="button-row ">
+                        <button mat-raised-button type="submit " color="primary" [disabled]="this.form.invalid" (click)="saveOnCloud()">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="preview-container">
+                <svg width="190px" height="190px" attr.preserveAspectRatio="x80Y80 meet" attr.viewBox="{{this.viewBox}}" [innerHTML]="this.sanitizer.bypassSecurityTrustHtml(this.data.svg.nativeElement.innerHTML)" [ngStyle]="{'background-color': this.data.backgroundColor}"
+                    #MySVG xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                </svg>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

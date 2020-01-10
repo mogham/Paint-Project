@@ -1,0 +1,14 @@
+<mat-toolbar class="toolbar">
+    <div mat-dialog-content>
+        <span>Attention</span>
+    </div>
+    <button class="btn-dialog-close" mat-raised-button tabIndex="-1" (click)="this.close()">
+    <mat-icon> clear </mat-icon>
+    </button>
+</mat-toolbar>
+<div mat-dialog-content>
+    <h4>You can't export an empty drawing, sorry !</h4>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="this.newDraw()">Open a new drawing</button>
+</div>

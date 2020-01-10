@@ -1,0 +1,10 @@
+<div class="lenghtSlide">
+    <p>{{ emissionRate.value }} emissions per second</p>
+    <mat-slider #emissionRate class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="10"  max="100" [value]="10" (change) = "setParamsEmissionRate($event)"></mat-slider>
+</div>
+<div class="degreeSlide">
+    <p>Diameter : {{ diameter.value }} pixels</p>
+    <mat-slider #diameter class ="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000"
+    min="10"  max="100" [value]="10" (change) = "setParamsDiameter($event)"></mat-slider>
+</div>

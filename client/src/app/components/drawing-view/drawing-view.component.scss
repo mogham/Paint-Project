@@ -1,0 +1,338 @@
+#drawing-view {
+    height: 100%;
+    width: 100%;
+}
+
+p {
+    color: black;
+    font-size: 80%;
+}
+
+circle#LU {
+    cursor: nwse-resize;
+}
+
+circle#RU {
+    cursor: nesw-resize;
+}
+
+circle#RD {
+    cursor: nwse-resize;
+}
+
+circle#LD {
+    cursor: nesw-resize;
+}
+
+circle#MU {
+    cursor: ns-resize;
+}
+
+circle#MD {
+    cursor: ns-resize;
+}
+
+circle#RM {
+    cursor: ew-resize;
+}
+
+circle#LM {
+    cursor: ew-resize;
+}
+
+#drawing-surface {
+    align-content: space-between;
+    background-color: grey;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.icon-bar {
+    background-color: #555;
+    float: left;
+    width: 46px;
+}
+
+#top {
+    background-color: #555;
+    display: grid;
+    text-align: left;
+    transition: all 0.3s ease;
+    color: #555;
+    height: 42px;
+}
+
+#folderButton {
+    font-size: large;
+    background-color: #555;
+    color: white;
+    padding: 10px 32px;
+    border-color: transparent;
+}
+
+.top button {
+    font-size: large;
+    background-color: #555;
+    color: white;
+    padding: 10px 32px;
+    border-color: transparent;
+    display: flex;
+    width: auto;
+}
+
+.top button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.buttonUR button[disabled] {
+    opacity: 0.6;
+}
+
+.top button[disabled]:hover {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+#folderButton:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.attribute {
+    float: right;
+    width: 335px;
+    background-color: #555;
+    overflow-y: auto;
+}
+
+.tools div {
+    border-bottom-style: groove;
+    border-bottom-width: thin;
+}
+
+#drawing-view {
+    display: flex;
+}
+
+.fab.fa-penny-arcade {
+    font-size: 36px;
+    color: white;
+}
+
+#work-surface {
+    background-color: rgb(179, 179, 179);
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    width: -webkit-fill-available;
+    background-color: #555;
+    border: none;
+    height: 33px;
+    cursor: pointer;
+}
+
+:disabled {
+    opacity: 0.6;
+}
+
+.icon-bar button[disabled]:hover {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.icon-bar button {
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 18.5px;
+}
+
+.icon-bar button:hover {
+    background-color: #000;
+}
+
+button.btn.btn-primary.dropdown-toggle {
+    background-color: #555;
+    border-color: #555;
+}
+
+button.btn.btn-primary.dropdown-toggle:hover {
+    background-color: #000;
+}
+
+button.btn.btn-primary.dropdown-toggle:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
+::ng-deep mat-expansion-panel-header[aria-disabled=true] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.dropdown-menu {
+    background-color: #555;
+    color: #555;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown.dropright {
+    text-align: center;
+    width: 59.5px;
+}
+
+.mat-expansion-panel {
+    width: 260px;
+    background-color: #555;
+}
+
+.mat-expansion-panel.mat-elevation-z0 {
+    width: fit-content;
+}
+
+.folder a {
+    display: block;
+    text-align: 0;
+    padding: 6px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 16.5px;
+}
+
+.tools a {
+    display: block;
+    text-align: 0;
+    padding: 6px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 18.5px;
+}
+
+.fas.fa-folder {
+    color: white;
+    font-size: x-large;
+}
+
+.fas.fa-palette {
+    color: white;
+    font-size: x-large;
+}
+
+i.fas.fa-th-large {
+    color: white;
+    font-size: x-large;
+}
+
+.fas.fa-toolbox {
+    color: white;
+    font-size: x-large;
+}
+
+.fas.fa-file-signature {
+    color: white;
+    font-size: 20px;
+}
+
+.fas.fa-draw-polygon {
+    color: white;
+    font-size: 20px;
+}
+
+.fas.fa-ellipsis-h {
+    color: white;
+    font-size: 20px;
+}
+
+.traceTools {
+    align-self: auto;
+}
+
+.buttonUR {
+    height: 45px;
+    line-height: 2.5;
+    border-style: unset;
+    border-color: #555;
+    border-width: thin;
+}
+
+svg text {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.title {
+    font-size: large;
+    margin-left: 10px;
+    margin-top: 3px;
+    color: white;
+}
+
+#traceTools {
+    border-top-style: groove;
+    border-top-width: thin;
+}
+
+.file {
+    color: white;
+    margin-bottom: 6px;
+    margin-left: 6px;
+    font-size: large;
+}
+
+.fas.fa-file {
+    color: white;
+    size: large;
+    margin-top: 2px;
+}
+
+.filePanel {
+    width: 120px;
+    margin-left: 63px;
+}
+
+.createButton {
+    font-size: large;
+    background-color: #555;
+    color: white;
+    padding: 10px 32px;
+    border-color: transparent;
+    border-left-style: groove;
+    border-left-width: thin;
+    border-left-color: white;
+}
+
+.nameApp {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 1;
+}
+
+#tools button {
+    margin-left: 5px
+}
+
+.toolName {
+    color: white;
+    margin-left: 9px;
+    font-size: large;
+}
+
+.tool {
+    margin-top: 10px;
+}
+
+.fas.fa-magnet {
+    color: white;
+    font-size: x-large;
+}

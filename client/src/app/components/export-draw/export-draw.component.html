@@ -1,0 +1,43 @@
+<mat-toolbar class="toolbar">
+    <div mat-dialog-content>
+        <span>Export </span>
+    </div>
+    <button class="btn-dialog-close" mat-raised-button tabIndex="-1" (click)="closeDialog();">
+    <mat-icon> clear </mat-icon>
+  </button>
+</mat-toolbar>
+<mat-grid-list cols="2" rowHeight="250px">
+    <mat-grid-tile class="ExportForm">
+        <form [formGroup]="this.form" class="normal-form" [style.overflow]="'auto'" [style.height]="'87%'">
+            <div class="controles-container">
+                <mat-form-field>
+                    <input type="text" formControlName="name" matInput placeholder="Name">
+                    <mat-error *ngIf="this.form.controls['name'].errors?.pattern">
+                        Name must be alphanumerical.</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Extension</mat-label>
+                    <mat-select formControlName="extension" required ngDefaultControl>
+                        <mat-option *ngFor="let extension of this.extensions" [value]="extension">
+                            {{extension}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="this.form.controls['extension'].hasError('required')">Please choose an extension
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="button-row">
+                <button mat-raised-button type="submit " color="primary" [disabled]="this.form.invalid" (click)="export()">Export</button>
+            </div>
+        </form>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="preview-container">
+            <svg width="220px" height="220px" attr.preserveAspectRatio="x90Y90 meet" attr.viewBox="{{this.viewBox}}" [innerHTML]="this.sanitizer.bypassSecurityTrustHtml(this.data.svg.nativeElement.innerHTML)" [ngStyle]="{'background-color': this.data.backgroundColor}"
+                #MySVG xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    </svg>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

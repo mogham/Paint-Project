@@ -1,0 +1,114 @@
+<mat-toolbar class="toolbar">
+    <div mat-dialog-content>
+        <span>New </span>
+    </div>
+    <button class="btn-dialog-close" mat-raised-button tabIndex="-1" (click)="close()">
+        <mat-icon> clear </mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="this.form" class="normal-form" [style.overflow]="'auto'" [style.height]="'88%'">
+    <mat-grid-list cols="2" rowHeight='250px'>
+        <h2>Dimensions</h2>
+        <div class="controles-container">
+            <mat-form-field>
+                <input type="number" formControlName="height" matInput placeholder="Height (px)" (keyup)="activateHeight()">
+                <mat-error *ngIf="this.form.controls['height'].errors?.min">
+                    Choose a strict positive number </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="number" formControlName="width" matInput placeholder="Width (px)" (keyup)="activateWidth()">
+                <mat-error *ngIf="this.form.controls['width'].errors?.min">
+                    Choose a strict positive number </mat-error>
+            </mat-form-field>
+            <h2>Color </h2>
+            <h5> If there's not an option selected, the default color is the white. </h5>
+            <div>
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" (opened)="this.showRGBA = true" (opened)="this.showHexadecimal = false" (opened)="this.showPalette = false" (closed)="this.showRGBA = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                RGBA color
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="colorType">
+                            <div *ngIf="this.getShowRGBA()" class="opened">
+                                <mat-grid-list cols="4" rowHeight='45px'>
+                                    <div class="controles-container">
+                                        <mat-form-field>
+                                            <input type="number" formControlName="redColor" matInput placeholder="Red" (keyup)="activateColorInRGBA()">
+                                            <mat-error *ngIf="this.form.controls['redColor'].errors?.min">
+                                                Choose a positive number </mat-error>
+                                            <mat-error *ngIf="this.form.controls['redColor'].errors?.max">
+                                                Choose a number less than 255.</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field>
+                                            <input type="number" formControlName="greenColor" matInput placeholder="Green" (keyup)="activateColorInRGBA()">
+                                            <mat-error *ngIf="this.form.controls['greenColor'].errors?.min">
+                                                Choose a positive number </mat-error>
+                                            <mat-error *ngIf="this.form.controls['greenColor'].errors?.max">
+                                                Choose a number less than 255.</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field>
+                                            <input type="number" formControlName="blueColor" matInput placeholder="Blue" (keyup)="activateColorInRGBA()">
+                                            <mat-error *ngIf=" this.form.controls[ 'blueColor'].errors?.min ">
+                                                Choose a positive number</mat-error>
+                                            <mat-error *ngIf="this.form.controls[ 'blueColor'].errors?.max ">
+                                                Choose a number less than 255.</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field>
+                                            <input type="number" formControlName="opacity" matInput placeholder="Opacity" (keyup)="activateColorInRGBA()">
+                                            <mat-error *ngIf=" this.form.controls[ 'opacity'].errors?.min ">
+                                                Choose a positive number</mat-error>
+                                            <mat-error *ngIf="this.form.controls[ 'opacity'].errors?.max ">
+                                                Choose a number less than 1.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </mat-grid-list>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="this.showHexadecimal = true" (opened)="this.showRGBA = false" (opened)="this.showPalette = false" (closed)="this.showHexadecimal = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Hexadecimal color
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                #RRGGBBAA
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="colorType">
+                            <div *ngIf="this.getShowHex()" class="opened">
+                                <div class="controles-container">
+                                    <mat-form-field rowHeight="50px">
+                                        <input type="text" maxlength="9" formControlName="hexadecimalColor" matInput placeholder="HEX" (keyup)="activateColorInHex()">
+                                        <mat-error *ngIf="this.form.controls['hexadecimalColor'].errors?.pattern">
+                                            Hexadecimal number Only : from 0 to 9 and from A to F beginning with #.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="this.showPalette = true" (opened)="this.showRGBA = false" (opened)="this.showHexadecimal = false" (closed)="this.showPalette = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Color picker
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="colorType">
+                            <div *ngIf="this.getShowPalette()" class="opened">
+                                <div class=" card">
+                                    <app-color-picker (event)="setColor($event)">
+                                    </app-color-picker>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div class="button-row ">
+                <button mat-raised-button type="submit " color="primary" [disabled]="!this.heightChoosed || !this.widthChoosed || !this.colorChoosed" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </mat-grid-list>
+</form>

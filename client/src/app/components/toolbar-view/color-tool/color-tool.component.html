@@ -1,0 +1,114 @@
+<span class="explainingCommand"> Click on the circles to change the color.</span>
+<mat-grid-list class="grid" cols="2">
+    <mat-grid-tile>
+        <div>
+            <span class="colorTypePrimary">Primary color</span>
+            <button mat-fab class="colorButtonPrimary" [ngStyle]="{'background-color': primaryColor || 'black'}" title="update primary color" [matMenuTriggerFor]="primaryColorChange">
+          <mat-menu class="menuColor" #primaryColorChange="matMenu" (click)="$event.stopPropagation();">
+            <h4 class="colorUsedTitle" (click)="$event.stopPropagation();"> Recently used :</h4>
+            <span style="margin-left:15px;" *ngFor="let color of this.lastColorsArray; let index = index;" (click)="$event.stopPropagation();">
+              <button mat-mini-fab [ngStyle]="{'background-color': lastColorsArray[index] || 'black'}"
+                (click)="takeLastColors(index, true)" style="margin:5px;"></button>
+            </span>
+            <mat-accordion (click)="$event.stopPropagation();">
+                <mat-expansion-panel class="hexPanel" (click)="$event.stopPropagation();">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Hexadecimal Color
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            #RRGGBBAA
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div id="inputHex">
+                        <mat-grid-list cols="2">
+                            <mat-grid-tile>
+                                <input type="text" class="codeColor" matInput maxlength="9" pattern="[a-fA-F\d]+" [(ngModel)]="colorInHex" (change)="checkHexColor()" (click)="$event.stopPropagation();">
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <div class="color-div" [ngStyle]="{'background-color': colorInHex || 'white'}"></div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                    <button mat-button class="buttonColor" type="submit" (click)="updateHexColor(true)">Update primary
+                      color</button>
+                </mat-expansion-panel>
+                <mat-expansion-panel (click)="$event.stopPropagation();">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Color picker
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-color-picker class="colorPicker" (click)="$event.stopPropagation();"></app-color-picker>
+                    <br />
+                    <div>
+                        <p class="opacitySlide">Opacity : {{ opacityInPourcent }} %</p>
+                        <mat-slider #opacity class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="0" max="100" [value]="1" (change)="setOpacity($event)" [(ngModel)]="opacityInPourcent" (click)="$event.stopPropagation();">
+                        </mat-slider>
+                    </div>
+                    <button mat-button class="buttonColor" type="submit" (click)="updatePrimaryColor()">Update primary
+                      color </button>
+                </mat-expansion-panel>
+            </mat-accordion>
+            </mat-menu>
+            </button>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <span class="colorTypeSecondary">Secondary color</span>
+            <button class="colorButtonSecondary" mat-fab [ngStyle]="{'background-color': secondColor || 'black'}" title="update second color" [matMenuTriggerFor]="secondColorChange">
+  <mat-menu #secondColorChange="matMenu" (click)="$event.stopPropagation();">
+            <h4 class="colorUsedTitle" (click)="$event.stopPropagation();"> Recently used :</h4>
+    <span style="margin-left:15px;" *ngFor="let color of lastColorsArray; let index = index;"
+      (click)="$event.stopPropagation();">
+      <button  mat-mini-fab [ngStyle]="{'background-color': lastColorsArray[index] || 'black'}"
+        (click)="takeLastColors(index, false)" style="margin:5px;"></button>
+            </span>
+            <mat-accordion (click)="$event.stopPropagation();">
+                <mat-expansion-panel class="hexPanel" (click)="$event.stopPropagation();">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Hexadecimal Color
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            #RRGGBBAA
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div id="inputHex">
+                        <mat-grid-list cols="2">
+                            <mat-grid-tile>
+                                <input type="text" class="codeColor" matInput maxlength="9" pattern="[a-fA-F\d]+" [(ngModel)]="colorInHex" (change)="checkHexColor()" (click)="$event.stopPropagation();">
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <div class="color-div" [ngStyle]="{'background-color': colorInHex || 'white'}"></div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                    <button mat-button class="buttonColor" (click)="updateHexColor(false)">Update secondary
+                      color</button>
+                </mat-expansion-panel>
+                <mat-expansion-panel (click)="$event.stopPropagation();">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Color picker
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-color-picker class="colorPicker" (click)="$event.stopPropagation();"></app-color-picker>
+                    <br />
+                    <div>
+                        <p class="opacitySlide">Opacity : {{ opacityInPourcent }} %</p>
+                        <mat-slider #opacity class="slider" thumbLabel [displayWith]="formatLabel" id="myRange" tickInterval="1000" min="0" max="100" [value]="1" (change)="setOpacity($event)" [(ngModel)]="opacityInPourcent" (click)="$event.stopPropagation();">
+                        </mat-slider>
+                    </div>
+                    <button mat-button class="buttonColor" color="primary" [disabled]="!this.checkHexColor()" (click)="updateSecondColor()">Update second
+                      color</button>
+                </mat-expansion-panel>
+            </mat-accordion>
+            </mat-menu>
+            </button>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+<button mat-button class="background" name="background" title="Set the choosed primary color as the background color of the draw." (click)="updateBackgroundColor()">Set background color</button>
+<button mat-button class="invert" name="Invert" title="Invert between the primary color and the secondary color." (click)="invertColors()">Invert colors</button>

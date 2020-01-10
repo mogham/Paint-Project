@@ -1,0 +1,21 @@
+.input {
+    background-color: gainsboro;
+    width: 112px;
+}
+
+::ng-deep .mat-accent .mat-slider-thumb {
+    background-color: firebrick;
+    transform: scale(0.8);
+}
+
+::ng-deep .mat-accent .mat-slider-thumb-label {
+    background-color: firebrick;
+}
+ 
+::ng-deep .mat-accent .mat-slider-track-fill {
+    background-color: firebrick;
+}
+
+::ng-deep .mat-slider-track-wrapper {
+    transform: scaleY(3);
+}

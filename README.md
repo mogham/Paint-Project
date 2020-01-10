@@ -10,9 +10,10 @@ We applicated the Agile method and coded with the MEAN stack.
 There was 4 sprints from September to December.
 ## Credits 
 The project was made by :
-*Souhaila Mellouk
-*Mourad Younes
-*Lynn Chararbsissy
-*Thibault Meston
-*Senda Ben Salem
-*Mohamed Khairallah Gharbi
+- Souhaila Mellouk
+- Mourad Younes
+- Lynn Chararbsissy
+- Thibault Meston
+- Senda Ben Salem
+- Mohamed Khairallah Gharbi
+

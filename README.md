@@ -8,8 +8,8 @@ This project was developped and designed during 3 months.
 * This project was developped during 3 months.
 * We applicated the Agile method and coded with the MEAN stack.
 * There was 4 sprints from September to December.
-## Credits 
-The project was made by :
+## Team 
+Project made by :
 - Souhaila Mellouk
 - Mourad Younes
 - Lynn Chararbsissy
